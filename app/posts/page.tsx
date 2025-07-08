@@ -1,17 +1,9 @@
 import db from '@/lib/db';
 import { posts } from '@/lib/schema';
-import { revalidatePath } from 'next/cache';
+import { addPost } from '@/app/actions';
 
 export default async function PostsPage() {
   const allPosts = await db.select().from(posts);
-
-  async function addPost(formData: FormData) {
-    'use server';
-    const title = formData.get('title') as string;
-    const content = formData.get('content') as string;
-    await db.insert(posts).values({ title, content });
-    revalidatePath('/posts');
-  }
 
   return (
     <main className="container mx-auto p-4">
