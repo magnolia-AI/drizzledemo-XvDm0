@@ -10,5 +10,3 @@ export async function addPost(formData: FormData) {
   await db.insert(posts).values({ title, content, createdAt: new Date() });
   revalidatePath('/posts');
 }
-
-
